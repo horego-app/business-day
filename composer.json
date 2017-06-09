@@ -1,7 +1,9 @@
 {
     "name": "printerous/business-day",
     "description": "Business day calculation",
-    "keywords": ["template", "composer", "package"],
+    "keywords": [
+        "business day"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -9,15 +11,14 @@
             "email": "handi@printerous.com"
         }
     ],
-    "type": "project",
     "require": {
-		"php": ">=5.6",
+        "php": ">=5.6",
         "nesbot/carbon": "^1.22"
     },
-	"require-dev": {
-        "phpunit/phpunit": "~6.1"
+    "require-dev": {
+        "phpunit/phpunit": "^6.1"
     },
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "Printerous\\Library\\": "src/"
         }
