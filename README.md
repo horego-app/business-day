@@ -1,6 +1,6 @@
 # Business Day
 
-Date calculation based on business caledars
+Date calculation based on business calendars
 
 ## Installation
 
