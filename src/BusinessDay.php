@@ -15,13 +15,18 @@ class BusinessDay
 
     public function next(\DateTime $dateTime, $day = 1)
     {
-        if ($day < 1) $day = 1;
+        if ($day < 0) $day = 0;
         $result = clone $dateTime;
-
-        for ($i = 0; $i < $day; $i++) {
-            do {
+        if ($day == 0) {
+            while($this->isHoliday($result)) {
                 $result = Carbon::instance($result)->addDay();
-            } while ($this->isHoliday($result));
+            }
+        } else {
+            for ($i = 0; $i < $day; $i++) {
+                do {
+                    $result = Carbon::instance($result)->addDay();
+                } while ($this->isHoliday($result));
+            }  
         }
         return $result;
     }

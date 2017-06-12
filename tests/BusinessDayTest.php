@@ -99,4 +99,31 @@ class BusinessDayTest extends TestCase
         $today = new DateTime('2017-06-12');
         $this->assertEquals(new DateTime('2017-06-16'), $business->next($today, 2));
     }
+
+    public function testNextBusinessDay0()
+    {
+        $business = new BusinessDay(new Config());
+        $today = new DateTime('2017-06-12');
+        $this->assertEquals(new DateTime('2017-06-12'), $business->next($today, 0));
+    }
+
+    public function testNextBusinessDay0WithHoliday()
+    {
+        $holiday = [
+            new DateTime('2017-06-12')
+        ];
+        $business = new BusinessDay(new Config($holiday));
+        $today = new DateTime('2017-06-12');
+        $this->assertEquals(new DateTime('2017-06-13'), $business->next($today, 0));
+    }
+    public function testNextBusinessDay0WithHolidayAndWeekend()
+    {
+        $holiday = [
+            new DateTime('2017-06-08'),
+            new DateTime('2017-06-09')
+        ];
+        $business = new BusinessDay(new Config($holiday));
+        $today = new DateTime('2017-06-08');
+        $this->assertEquals(new DateTime('2017-06-12'), $business->next($today, 0));
+    }
 }
