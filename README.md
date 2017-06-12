@@ -1,15 +1,27 @@
-Composer Library Template
-=========================
+#Business Day
 
-If you are trying to create a new PHP Composer library, whether it will be going to submitted to packagist.org or just in your Github account, this template of files will surely help you make the process a lot easier and faster.
+Date calculation based on business caledars
 
-Features
---------
+## Installation
 
-* PSR-4 autoloading compliant structure
-* Unit-Testing with PHPUnit
-* Comprehensive Guides and tutorial
-* Easy to use to any framework or even a plain php file
+```bash
+$ composer require printerous/business-day
+```
 
+## Usage
 
-I encourage that you put more information on this readme file instead of leaving it as is. See [http://www.darwinbiler.com/designing-and-making-the-readme-file-for-your-github-repository/](How to make a README file) for more info.
+```php
+$business = new BusinessDay(new Config());
+$today = new DateTime('2017-06-08');
+$business->next($today); // '2017-06-09'
+$business->next($today, 2); // '2017-06-12'
+
+//Set holidays
+$holidays = [
+    new DateTime('2017-06-13'),
+    new DateTime('2017-06-14')
+];
+$business = new BusinessDay(new Config($holidays));
+$today = new DateTime('2017-06-13');
+$business->next($today); // '2017-06-15'
+```
