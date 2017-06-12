@@ -26,8 +26,13 @@ class BusinessDay
         return $result;
     }
 
-    protected function isHoliday(\DateTime $dateTime)
+    public function isHoliday(\DateTime $dateTime)
     {
         return $this->config->isHoliday($dateTime) || Carbon::instance($dateTime)->isWeekend();
+    }
+
+    public function isBusinessDay(\DateTime $dateTime)
+    {
+        return !$this->isHoliday($dateTime);
     }
 }
