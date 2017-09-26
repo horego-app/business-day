@@ -16,7 +16,7 @@ class BusinessDay
     public function next(\DateTime $dateTime, $day = 1)
     {
         if ($day < 0) $day = 0;
-        $result = clone $dateTime;
+        $result = Carbon::instance($dateTime);
         if ($day == 0) {
             while($this->isHoliday($result)) {
                 $result = Carbon::instance($result)->addDay();

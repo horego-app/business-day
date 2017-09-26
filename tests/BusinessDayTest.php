@@ -126,4 +126,13 @@ class BusinessDayTest extends TestCase
         $today = new DateTime('2017-06-08');
         $this->assertEquals(new DateTime('2017-06-12'), $business->next($today, 0));
     }
+
+    public function testToDateTimeString()
+    {
+        $business = new BusinessDay(new Config());
+        $today = new DateTime('2017-06-12');
+        $bd = $business->next($today, 0)->toDateTimeString();
+        $delivery_date = date('Y-m-d H:i:s',strtotime($bd));
+        $this->assertTrue(@$delivery_date ? true : false);
+    }
 }
