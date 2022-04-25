@@ -2,7 +2,7 @@
 
 module BusinessDay
   class Officer
-    HOLIDAYS = YAML.load_file(File.dirname(__FILE__) + '/holiday.yml')['dates']
+    CONFIG_URL = 'https://prts-gutenberg.s3.ap-southeast-1.amazonaws.com/friday/holiday.yml'
 
     def initialize(date, increment = 1)
       @date      = normalize_date(date)
@@ -23,6 +23,15 @@ module BusinessDay
       end
     end
 
+    def holidays
+      @holidays ||= begin
+        content = URI.open(CONFIG_URL) { |f| f.read }
+        YAML::load(content)['dates']
+      rescue StandardError => e
+        []
+      end
+    end
+
     def holiday_checking
       holiday?
     end
@@ -37,7 +46,7 @@ module BusinessDay
     end
 
     def holiday?
-      HOLIDAYS.include?(@date.to_date.to_s)
+      holidays.include?(@date.to_date.to_s)
     end
 
     def weekend?
